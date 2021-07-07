@@ -7,7 +7,7 @@ import {
   convertToRaw,
 } from "draft-js";
 import draftToHtml from "draftjs-to-html";
-import Editor from "react-draft-wysiwyg";
+import { Editor } from "react-draft-wysiwyg";
 
 import DynamicOptionList from "./dynamic-option-list";
 import { get } from "./stores/requests";
@@ -30,6 +30,29 @@ export default class FormElementsEdit extends React.Component {
       data: this.props.data,
       dirty: false,
     };
+    this.html = props.data;
+    const contentBlock = typeof window !== 'undefined' ? draftToHtml(this.html) : null;
+    if(contentBlock) {
+      const
+        contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks),
+        editorState = EditorState.createWithContent(contentState);
+
+      this.state = {
+        editorState: editorState,
+        editor: null,
+      };
+    } else {
+      this.state = {
+        editorState: null,
+        editor: null,
+      };
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      editor: true,
+    });
   }
 
   toggleRequired() {
@@ -204,7 +227,7 @@ export default class FormElementsEdit extends React.Component {
           <div className="form-group">
             <label className="control-label">Text to display:</label>
 
-            <Editor
+            {this.state.editor ?  <Editor
               toolbar={toolbar}
               defaultEditorState={editorState}
               onBlur={this.updateElement.bind(this)}
@@ -214,7 +237,7 @@ export default class FormElementsEdit extends React.Component {
                 "content"
               )}
               stripPastedStyles={true}
-            />
+            />: null}
           </div>
         )}
         {this.props.element.hasOwnProperty("file_path") && (
