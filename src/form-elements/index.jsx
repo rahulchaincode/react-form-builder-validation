@@ -44,7 +44,7 @@ class Header extends React.Component {
         className={baseClasses}
         onClick={() => this.setState({ hasClicked: !this.state.hasClicked })}
       >
-        <ComponentHeader {...this.props} hasClicked={this.state.hasClicked}/>
+        <ComponentHeader {...this.props} hasClicked={this.state.hasClicked} />
         <h3
           className={classNames}
           dangerouslySetInnerHTML={{
@@ -349,6 +349,9 @@ class Dropdown extends React.Component {
           <ComponentLabel {...this.props} />
           <div>
             <select {...props}>
+              <option value="nothingSelected" key="default">
+                Select an Option
+              </option>
               {this.props.data.options.map((option) => {
                 const this_key = `preview_${option.key}`;
                 return (

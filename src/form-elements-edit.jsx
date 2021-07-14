@@ -14,9 +14,9 @@ import draftToHtml from "draftjs-to-html";
 // let DraftEditor;
 // import('react-draft-wysiwyg').then(mod => DraftEditor = mod.Editor);
 const Editor = dynamic(
-  () => import('react-draft-wysiwyg').then(mod => mod.Editor),
+  () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
   { ssr: false }
-)
+);
 
 import DynamicOptionList from "./dynamic-option-list";
 import { get } from "./stores/requests";
@@ -436,7 +436,7 @@ export default class FormElementsEdit extends React.Component {
                         style={{ width: "100%" }}
                         type="number"
                         id="inputMin"
-                        placeholder="Enter min allowed length"
+                        placeholder="Enter min allowed number"
                         defaultValue={this.props.element.inputMin}
                         onBlur={this.updateElement.bind(this)}
                         onChange={this.editElementProp.bind(
@@ -459,7 +459,7 @@ export default class FormElementsEdit extends React.Component {
                         style={{ width: "100%" }}
                         type="number"
                         id="inputMax"
-                        placeholder="Enter max allowed length"
+                        placeholder="Enter max allowed number"
                         defaultValue={this.props.element.inputMax}
                         onBlur={this.updateElement.bind(this)}
                         onChange={this.editElementProp.bind(

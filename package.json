@@ -1,6 +1,6 @@
 {
   "name": "chaincodeformbuildervalidation",
-  "version": "0.9.14",
+  "version": "0.9.17",
   "description": "A complete form builder for react.",
   "main": "lib/index.js",
   "license": "MIT",

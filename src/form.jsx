@@ -141,7 +141,11 @@ export default class ReactForm extends React.Component {
           if ($item.value === 0) {
             invalid = true;
           }
-        } else if ($item.value === undefined || $item.value.length < 1) {
+        } else if (
+          $item.value === undefined ||
+          $item.value.length < 1 ||
+          $item.value === "nothingSelected" // For Dropdown
+        ) {
           invalid = true;
         }
       }
@@ -281,14 +285,14 @@ export default class ReactForm extends React.Component {
 
         // Check Min
         if (!!item.inputMin) {
-          if (Number($item.value).toString().length < Number(item.inputMin)) {
+          if (Number($item.value) < Number(item.inputMin)) {
             errors.push(`${item.label} must be greater than ${item.inputMin}`);
           }
         }
 
         // Check Max
         if (!!item.inputMax) {
-          if (Number($item.value).toString().length > Number(item.inputMax)) {
+          if (Number($item.value) > Number(item.inputMax)) {
             errors.push(`${item.label} must be less than ${item.inputMax}`);
           }
         }
@@ -518,11 +522,7 @@ export default class ReactForm extends React.Component {
                 />
               )}
               {!this.props.hide_actions && this.props.back_action && (
-                <input
-                  type="button"
-                  className="btn btn-big"
-                  value={backName}
-                />
+                <input type="button" className="btn btn-big" value={backName} />
                 // <a
                 //   href={this.props.back_action}
                 //   className="btn btn-default btn-cancel btn-big"
